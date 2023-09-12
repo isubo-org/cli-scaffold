@@ -1,14 +1,7 @@
 import { writeFileSync } from 'fs';
 import { ensureFileSync } from 'fs-extra/esm';
-import { BUILD_SCRIPT_FILE, BUILD_SCRIPT_FILEPATH, DEPENDENCIES, DEV_DEPENDENCIES, GITHUB_WORKFLOW_FILE, GITHUB_WORKFLOW_FILEPATH, ROLLUP_CONF_FILE, ROLLUP_CONF_FILEPATH } from './src/constant.js';
+import { BUILD_SCRIPT_FILE, BUILD_SCRIPT_FILEPATH, DEPENDENCIES, DEV_DEPENDENCIES, GITHUB_WORKFLOW_FILE, GITHUB_WORKFLOW_FILEPATH, NPMRC_FILE, NPMRC_FILEPATH, ROLLUP_CONF_FILE, ROLLUP_CONF_FILEPATH } from './src/constant.js';
 import { execCmdSync, getPkgData } from './src/util.js';
-
-function initPkg() {
-  // if (existsSync('package.json')) {
-  //   return;
-  // };
-  execCmdSync(`npm init`);
-}
 
 function writePkgJson() {
   const pkgData = getPkgData();
@@ -55,6 +48,13 @@ function initBuildScriptFile() {
   writeFileSync(BUILD_SCRIPT_FILEPATH, BUILD_SCRIPT_FILE);
 }
 
+function initNpmrcFile() {
+  ensureFileSync(NPMRC_FILEPATH);
+
+  writeFileSync(NPMRC_FILEPATH, NPMRC_FILE);
+}
+
+
 function installDependencies() {
   execCmdSync(`pnpm add ${DEPENDENCIES.join(' ')}`);
 }
@@ -64,9 +64,9 @@ function installDevDependencies() {
 }
 
 export const init = () => {
-  // initPkg();
   writePkgJson();
   initEntryFile();
+  initNpmrcFile();
   initGithubWorkflowFile();
   initRollupConfFile();
   initBuildScriptFile();

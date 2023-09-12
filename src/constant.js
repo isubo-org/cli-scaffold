@@ -189,6 +189,12 @@ function main() {
 main();
 `);
 
+export const NPMRC_FILEPATH = '.npmrc';
+export const NPMRC_FILE = delFirstAndLastLines(`
+publish=true
+access=public
+`);
+
 export const DEPENDENCIES = [
   'yargs',
 ];
