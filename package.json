@@ -1,6 +1,6 @@
 {
   "name": "@isubo-org/cli-scaffold",
-  "version": "0.0.0",
+  "version": "0.0.1-alpha.0",
   "description": "A cli-scaffold tool for the sub cli-pkg of isubo",
   "main": "index.js",
   "type": "module",
